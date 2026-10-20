@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+.pytest_cache/
+.DS_Store
+Thumbs.db
+data/*.db
+data/*.db-journal
+.streamlit/secrets.toml
