@@ -1,0 +1,4 @@
+pond_id,recorded_at,water_temp_c,dissolved_oxygen_mg_l,ph,ammonia_mg_l,source_type
+1,2026-10-18 08:00:00,24.6,6.3,7.6,0.25,MANUAL
+2,2026-10-18 08:00:00,26.1,6.7,7.9,0.19,MANUAL
+3,2026-10-18 08:00:00,27.2,5.6,8.0,0.28,MANUAL
