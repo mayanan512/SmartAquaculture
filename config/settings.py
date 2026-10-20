@@ -15,7 +15,7 @@ ASSETS_DIR = PROJECT_ROOT / "assets"
 
 # 系统元信息
 APP_NAME = "智渔云 —— 智慧养殖数字孪生管理平台"
-APP_VERSION = "v0.3.9"
+APP_VERSION = "v0.4.0"
 
 # 1. 数据来源枚举 (source_type)
 SOURCE_SIMULATED = "SIMULATED"

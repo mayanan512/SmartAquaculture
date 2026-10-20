@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-公共主题与全站未来感顶部横幅、气象时间挂件、主导航栏、跨页路由跳转与科技感图像容器组件 (V3.8 零泄漏版)。
+公共主题与全站未来感顶部横幅、气象时间挂件、主导航栏、跨页路由跳转与科技感图像容器组件 (V4.0 完整显图与全天候高对比度版)。
 """
 
 import base64
@@ -40,16 +40,15 @@ def render_tech_image(
     caption: str = "",
     max_height_px: Optional[int] = None,
 ) -> None:
-    """将图片或 SVG 封装在带青蓝发光边框的科技感容器中渲染，兼容所有版本 Streamlit 且不暴露代码。"""
+    """将图片或 SVG 封装在带青蓝发光边框的科技感容器中完整渲染，绝不裁切图片边缘。"""
     if not file_path.exists():
         return
     b64_data = get_base64_asset(file_path)
     mime = "image/svg+xml" if file_path.suffix.lower() == ".svg" else "image/png"
-    h_style = f"max-height:{max_height_px}px; object-fit:contain;" if max_height_px else "object-fit:cover;"
     cap_html = f'<div class="tech-img-caption">{caption}</div>' if caption else ""
     st.markdown(
         f"""<div class="tech-img-frame notranslate" translate="no">
-<img src="data:{mime};base64,{b64_data}" style="width:100%; {h_style} border-radius:6px; display:block; margin:0 auto;" alt="{caption}">
+<img src="data:{mime};base64,{b64_data}" style="width:100%; height:auto; object-fit:contain; border-radius:6px; display:block; margin:0 auto;" alt="{caption}">
 {cap_html}
 </div>""",
         unsafe_allow_html=True,

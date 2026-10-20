@@ -73,7 +73,7 @@ with col_left:
     wq_view_mode = st.radio(
         "水质曲线模式：",
         options=["MULTI_DO", "MULTI_NH3", "SINGLE_COUPLED"],
-        format_func=lambda m: "🫧 多池溶氧对比" if m == "MULTI_DO" else ("⚗️ 多池氨氮对比" if m == "MULTI_NH3" else "🌡️ 水温+溶氧耦合"),
+        format_func=lambda m: "💧 溶氧对比" if m == "MULTI_DO" else ("⚗️ 氨氮对比" if m == "MULTI_NH3" else "🌡️ 温氧耦合"),
         horizontal=True,
         label_visibility="collapsed",
     )
@@ -160,7 +160,7 @@ with col_center:
     home_scene = st.radio(
         "渲染视图：",
         options=["3D_RENDER", "3D_SCENE", "2D_MAP"],
-        format_func=lambda m: "🏢 3D园区实景视图" if m == "3D_RENDER" else ("🧊 3D水体剖面模型" if m == "3D_SCENE" else "🗺️ 2D平面矢量拓扑"),
+        format_func=lambda m: "🏢 3D园区实景" if m == "3D_RENDER" else ("🧊 3D水体剖面" if m == "3D_SCENE" else "🗺️ 2D平面拓扑"),
         horizontal=True,
         label_visibility="collapsed",
     )
@@ -232,7 +232,7 @@ with col_right:
     alert_chart_mode = st.radio(
         "告警图表切换：",
         options=["STATUS_DONUT", "TYPE_DONUT", "SEV_BAR"],
-        format_func=lambda m: "🍩 处理状态占比" if m == "STATUS_DONUT" else ("📊 告警类型占比" if m == "TYPE_DONUT" else "📶 风险等级分布"),
+        format_func=lambda m: "🍩 状态占比" if m == "STATUS_DONUT" else ("📊 类型占比" if m == "TYPE_DONUT" else "📶 等级分布"),
         horizontal=True,
         label_visibility="collapsed",
     )

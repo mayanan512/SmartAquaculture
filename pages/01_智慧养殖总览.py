@@ -101,7 +101,7 @@ with col_center:
     scene_mode = st.radio(
         "场景渲染模式：",
         options=["3D_RENDER", "3D_INTERACTIVE", "2D_VECTOR"],
-        format_func=lambda m: "🏢 3D园区实景视图" if m == "3D_RENDER" else ("🧊 3D水体剖面模型" if m == "3D_INTERACTIVE" else "🗺️ 2D平面矢量拓扑"),
+        format_func=lambda m: "🏢 3D园区实景" if m == "3D_RENDER" else ("🧊 3D水体剖面" if m == "3D_INTERACTIVE" else "🗺️ 2D平面拓扑"),
         horizontal=True,
         label_visibility="collapsed",
     )
@@ -201,7 +201,7 @@ with col_left:
 <div style="font-size:1.06rem; font-weight:700; color:#00f0ff;">{t_str}</div>
 </div>
 <div style="background:rgba(4,18,42,0.65); padding:6px 10px; border-radius:4px;">
-<div style="font-size:0.74rem; color:#9cc2ff;">🫧 溶解氧</div>
+<div style="font-size:0.74rem; color:#9cc2ff;">💧 溶解氧</div>
 <div style="font-size:1.06rem; font-weight:700; color:#06d6a0;">{do_str}</div>
 </div>
 <div style="background:rgba(4,18,42,0.65); padding:6px 10px; border-radius:4px;">

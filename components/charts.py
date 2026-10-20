@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-公共 Plotly 深蓝科技风图表组件 (V3.9 标题与图例零重叠 + 纯中文水平坐标轴优化版)。
+公共 Plotly 深蓝科技风图表组件 (V4.0 环形图内嵌百分比防截断 + 标题与图例零重叠版)。
 """
 
 from typing import Any, Dict, List, Optional
@@ -69,14 +69,14 @@ def _short_time_labels(series: pd.Series) -> List[str]:
 def apply_dark_tech_layout(fig: Any, title: str = "", height: int = 240) -> Any:
     """
     核心防重叠布局准则：
-    - 当存在 title 时：title 居左上 (y=0.95)，legend 置于底部居中 (y=-0.22)，上下彻底分离，绝不重叠；
+    - 当存在 title 时：title 居左上 (y=0.95)，legend 置于底部居中 (y=-0.20)，上下彻底分离，绝不重叠；
     - 当 title 为空时：legend 置于顶部居中 (y=1.02)，紧凑美观。
     """
     has_title = bool(title and title.strip())
     legend_cfg = (
-        dict(orientation="h", yanchor="top", y=-0.20, xanchor="center", x=0.5, font=dict(size=10.5, color="#d9ecff"), bgcolor="rgba(0,0,0,0)")
+        dict(orientation="h", yanchor="top", y=-0.20, xanchor="center", x=0.5, font=dict(size=10.5, color="#f0f8ff"), bgcolor="rgba(0,0,0,0)")
         if has_title
-        else dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5, font=dict(size=10.5, color="#d9ecff"), bgcolor="rgba(0,0,0,0)")
+        else dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5, font=dict(size=10.5, color="#f0f8ff"), bgcolor="rgba(0,0,0,0)")
     )
     top_m = 36 if has_title else 28
     bot_m = 48 if has_title else 30
@@ -91,21 +91,21 @@ def apply_dark_tech_layout(fig: Any, title: str = "", height: int = 240) -> Any:
             yanchor="top",
         ),
         height=height,
-        paper_bgcolor="rgba(6, 24, 52, 0.75)",
-        plot_bgcolor="rgba(3, 14, 32, 0.55)",
-        font=dict(color="#d9ecff", family="Microsoft YaHei, sans-serif"),
+        paper_bgcolor="rgba(6, 24, 52, 0.78)",
+        plot_bgcolor="rgba(3, 14, 32, 0.58)",
+        font=dict(color="#f0f8ff", family="Microsoft YaHei, sans-serif"),
         margin=dict(l=38, r=16, t=top_m, b=bot_m),
         xaxis=dict(
             gridcolor="rgba(0, 212, 255, 0.12)",
             zerolinecolor="rgba(0, 212, 255, 0.2)",
-            tickfont=dict(size=10, color="#b8daff"),
+            tickfont=dict(size=10.5, color="#d9ecff"),
             tickangle=0,
             automargin=True,
         ),
         yaxis=dict(
             gridcolor="rgba(0, 212, 255, 0.12)",
             zerolinecolor="rgba(0, 212, 255, 0.2)",
-            tickfont=dict(size=10, color="#b8daff"),
+            tickfont=dict(size=10.5, color="#d9ecff"),
             automargin=True,
         ),
         legend=legend_cfg,
@@ -154,23 +154,31 @@ def build_dual_metric_spline_chart(
     return apply_dark_tech_layout(fig, title=title, height=height)
 
 
-def build_donut_chart(labels: List[str], values: List[float], title: str = "", center_text: str = "", height: int = 225) -> Any:
+def build_donut_chart(labels: List[str], values: List[float], title: str = "", center_text: str = "", height: int = 230) -> Any:
+    """
+    构建环形图：
+    - 锁定 textposition="inside" 并设置 domain=dict(y=[0.12, 0.92])，
+      彻底杜绝小扇区百分比(如 7.69% 或 0%)甩到环外顶部被画布边缘截断！
+    """
     colors = ["#00f0ff", "#06d6a0", "#ffb703", "#fb8500", "#ff3366", "#9d4edd"]
     fig = go.Figure(data=[go.Pie(
         labels=labels,
         values=values,
-        hole=0.64,
+        hole=0.62,
+        domain=dict(x=[0.04, 0.96], y=[0.14, 0.94]),
         marker=dict(colors=colors[:max(1, len(labels))], line=dict(color="#061a38", width=2)),
         textinfo="percent",
-        textfont=dict(size=10.5, color="#ffffff"),
+        textposition="inside",
+        insidetextorientation="horizontal",
+        textfont=dict(size=11, color="#ffffff"),
         hoverinfo="label+value+percent",
     )])
     if center_text:
-        fig.update_layout(annotations=[dict(text=center_text, x=0.5, y=0.5, font_size=13, font_color="#ffffff", showarrow=False)])
+        fig.update_layout(annotations=[dict(text=center_text, x=0.5, y=0.54, font_size=13, font_color="#ffffff", showarrow=False)])
     fig = apply_dark_tech_layout(fig, title=title, height=height)
     fig.update_layout(
-        margin=dict(l=10, r=10, t=32 if title else 12, b=36),
-        legend=dict(orientation="h", yanchor="top", y=-0.05, xanchor="center", x=0.5, font=dict(size=10, color="#d9ecff")),
+        margin=dict(l=12, r=12, t=28 if title else 14, b=38),
+        legend=dict(orientation="h", yanchor="top", y=0.02, xanchor="center", x=0.5, font=dict(size=10.5, color="#f0f8ff")),
     )
     return fig
 
@@ -289,7 +297,7 @@ def build_3d_digital_twin_scene(
         title=dict(text="🧊 三维水体剖面与浮标态势 (可拖拽旋转)", font=dict(color="#00f0ff", size=13), x=0.02, y=0.96),
         height=390,
         paper_bgcolor="rgba(6, 22, 48, 0.85)",
-        font=dict(color="#d9ecff", family="Microsoft YaHei, sans-serif"),
+        font=dict(color="#f0f8ff", family="Microsoft YaHei, sans-serif"),
         margin=dict(l=0, r=0, t=32, b=0),
         legend=dict(orientation="h", yanchor="bottom", y=0.01, xanchor="right", x=0.98, bgcolor="rgba(4,15,35,0.6)"),
         scene=dict(
@@ -338,7 +346,6 @@ def build_multi_pond_wq_chart(
             annotation_font_color="#ff4d79",
             annotation_font_size=10,
         )
-    # 卡片上方已有 tech-card-header 标题，此处不重复置顶长标题，让 4 个简短池号图例在顶部一行水平铺开，彻底零重叠
     return apply_dark_tech_layout(fig, title="", height=height)
 
 

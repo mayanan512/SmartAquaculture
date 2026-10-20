@@ -337,7 +337,7 @@ class TestSmartAquacultureCoreFlow(unittest.TestCase):
 
     def test_08_manual_alert_and_version_check(self):
         from config.settings import APP_VERSION, get_metric_label_cn
-        self.assertEqual(APP_VERSION, "v0.3.9")
+        self.assertEqual(APP_VERSION, "v0.4.0")
         self.assertEqual(get_metric_label_cn("dissolved_oxygen_mg_l"), "溶解氧")
         self.assertEqual(get_metric_label_cn("ammonia_mg_l"), "氨氮")
         self.assertEqual(get_metric_label_cn("water_temp_c"), "水温")

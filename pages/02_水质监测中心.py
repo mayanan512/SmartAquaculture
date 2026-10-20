@@ -83,7 +83,7 @@ st.markdown(
 </div>
 <div class="tech-card" style="margin-bottom:0; border-left:4px solid #06d6a0;">
 <div style="display:flex; justify-content:space-between; align-items:center;">
-<span style="font-size:0.84rem; color:#9cc2ff;">🫧 溶解氧</span>
+<span style="font-size:0.84rem; color:#9cc2ff;">💧 溶解氧</span>
 <span style="font-size:0.72rem; color:#06d6a0;">实时监测</span>
 </div>
 <div style="font-size:1.5rem; font-weight:800; color:#fff; margin:4px 0;">{do_val} <span style="font-size:0.82rem; color:#06d6a0;">mg/L</span></div>
@@ -170,14 +170,14 @@ with mid_right:
     sub_c1, sub_c2 = st.columns(2)
     with sub_c1:
         st.markdown('<div class="tech-card"><div class="tech-card-header"><span class="tech-card-title">单指标趋势分析</span></div></div>', unsafe_allow_html=True)
-        m_choice = st.radio("选择单指标：", ["water_temp_c", "dissolved_oxygen_mg_l", "ph", "ammonia_mg_l"], format_func=lambda k: {"water_temp_c": "水温(°C)", "dissolved_oxygen_mg_l": "溶解氧(mg/L)", "ph": "pH值", "ammonia_mg_l": "氨氮(mg/L)"}[k], horizontal=True, label_visibility="collapsed")
+        m_choice = st.radio("选择单指标：", ["water_temp_c", "dissolved_oxygen_mg_l", "ph", "ammonia_mg_l"], format_func=lambda k: {"water_temp_c": "🌡️水温", "dissolved_oxygen_mg_l": "💧溶氧", "ph": "🧪pH值", "ammonia_mg_l": "⚗️氨氮"}[k], horizontal=True, label_visibility="collapsed")
         m_color = {"water_temp_c": "#00f0ff", "dissolved_oxygen_mg_l": "#06d6a0", "ph": "#00bbf9", "ammonia_mg_l": "#ffb703"}[m_choice]
         m_lbl = {"water_temp_c": "水温 (°C)", "dissolved_oxygen_mg_l": "溶解氧 (mg/L)", "ph": "pH 值", "ammonia_mg_l": "氨氮 (mg/L)"}[m_choice]
         st.plotly_chart(build_dual_metric_spline_chart(chart_df, m_choice, m_lbl, m_color, m_choice, "趋势包络", m_color, "", height=220), use_container_width=True)
 
     with sub_c2:
         st.markdown('<div class="tech-card"><div class="tech-card-header"><span class="tech-card-title">多指标历史趋势对比</span></div></div>', unsafe_allow_html=True)
-        st.write("")
+        _ = st.radio("多指标维度：", ["ALL4", "DO_NH3"], format_func=lambda k: "📊 四项核心指标同轴" if k == "ALL4" else "💧 溶氧与氨氮对比", horizontal=True, label_visibility="collapsed")
         if HAS_PLOTLY:
             p_df = chart_df.sort_values("recorded_at").tail(10)
             x_t = [str(v)[11:16] if len(str(v))>=16 else str(v) for v in p_df["recorded_at"]]

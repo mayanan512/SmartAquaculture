@@ -267,7 +267,7 @@ with b_c1:
 <div style="font-size:1.08rem; font-weight:700; color:#00f0ff;">{t_disp}</div>
 </div>
 <div style="background:rgba(4,18,42,0.65); padding:8px 10px; border-radius:4px; border-left:3px solid {do_color};">
-<div style="font-size:0.74rem; color:{do_color};">🫧 溶解氧</div>
+<div style="font-size:0.74rem; color:{do_color};">💧 溶解氧</div>
 <div style="font-size:1.08rem; font-weight:700; color:{do_color};">{do_disp}</div>
 </div>
 <div style="background:rgba(4,18,42,0.65); padding:8px 10px; border-radius:4px;">
